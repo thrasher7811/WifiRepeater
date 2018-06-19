@@ -81,8 +81,8 @@ if writefiles == "y":
     #write wpa_supplicant
     file = open('wpa_supplicant.conf' , 'w')
     file.write('network={\n')
-    file.write('    ssid=' + clientssid + "\n")
-    file.write('    psk=' + clientpsk + "\n")
+    file.write('    ssid="' + clientssid + '"\n')
+    file.write('    psk="' + clientpsk + '"\n')
     file.write('}')
     file.close()
 
