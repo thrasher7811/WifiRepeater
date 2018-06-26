@@ -30,6 +30,10 @@ if [ $function = "init" ];
     #copy dnsmasq file to /etc/dnsmasq.conf
     cp ./dnsmasq.conf /etc/dnsmasq.conf
 
+    # set static ip to hosting interface
+    echo "setting static host ip"
+    ifconfig $wlan1 192.168.123.1 netmask 255.255.255.0 up
+    
     echo "init ipv4 forwarding"
     #turn on ipv4 forwarding
     sh -c "echo 1 > /proc/sys/net/ipv4/ip_forward"
@@ -56,7 +60,10 @@ if [ $function = "kill" ];
 
     #flush iptables
     iptables -F
-
+    
+    #flush static ip
+    ip addr flush dev $wlan1
+    
     #stop services
     service hostapd stop
     service dnsmesq stop
